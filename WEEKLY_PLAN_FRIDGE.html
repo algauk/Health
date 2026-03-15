@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 · Plan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
+
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --surface-2: #242424;
+      --text: #f0f0f0;
+      --text-muted: #9ca3af;
+      --accent: #f97316;
+      --accent-dim: #ea580c;
+      --border: #2d2d2d;
+      --green: #22c55e;
+      --card-left: 4px solid transparent;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1rem 1.25rem 2rem;
+      font-family: 'Outfit', -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .week-label {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .week-progress {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .week-progress span { color: var(--accent); }
+
+    .inspiration-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .inspiration-card {
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+    .inspiration-card .img-box {
+      aspect-ratio: 3/4;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      padding: 0.5rem;
+    }
+    .inspiration-card .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .inspiration-card .name {
+      padding: 0.5rem 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .targets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      margin-bottom: 1.25rem;
+      padding: 0.85rem 1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .targets strong { color: var(--text); }
+
+    .day-card {
+      background: var(--surface);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 0.9rem;
+      overflow: hidden;
+      page-break-inside: avoid;
+      border-left: var(--card-left);
+    }
+    .day-card.mon { border-left-color: #6366f1; }
+    .day-card.tue { border-left-color: #f97316; }
+    .day-card.wed { border-left-color: #eab308; }
+    .day-card.thu { border-left-color: #22c55e; }
+    .day-card.fri { border-left-color: #06b6d4; }
+    .day-card.sat { border-left-color: #ec4899; }
+    .day-card.sun { border-left-color: #a855f7; }
+
+    .day-header {
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: var(--surface-2);
+    }
+    .day-header .training-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.25rem 0.55rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .day-body { padding: 0.9rem 1.1rem; }
+    .meals, .training-block { margin-bottom: 0.65rem; }
+    .meals:last-child, .training-block:last-child { margin-bottom: 0; }
+    .block-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .meal-line, .training-desc {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+    }
+    .meal-line input, .training-block input {
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      accent-color: var(--accent);
+    }
+    .meal-line .grams { color: var(--text-muted); font-size: 0.9em; }
+    .training-desc.detail { font-size: 0.8rem; color: var(--text-muted); margin-left: 1.4rem; }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1.25rem;
+      padding: 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .footer-note strong { color: var(--text); }
+
+    @media print {
+      body { background: #fff; color: #111; padding: 0.4in; }
+      .day-card { background: #fff; border: 1px solid #ddd; border-left-width: 4px; }
+      .day-header { background: #f5f5f5; color: #111; }
+      .targets { background: #f8f8f8; border: 1px solid #ddd; color: #333; }
+      .targets strong { color: #111; }
+      .inspiration-strip { break-inside: avoid; }
+      .inspiration-card { background: #f8f8f8; border: 1px solid #ddd; }
+      .inspiration-card .name { color: #555; }
+      .top-bar { border-color: #ddd; }
+      .week-label { color: #111; }
+      .week-progress { color: #555; }
+      .block-title { color: #c2410c; }
+      .meal-line, .training-desc { color: #111; }
+      .meal-line .grams { color: #666; }
+      .footer-note { color: #666; }
+      .footer-note strong { color: #111; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="week-label">This week</div>
+    <div class="week-progress">Week <span>1</span> of 24</div>
+  </div>
+
+  <div class="inspiration-strip">
+    <div class="inspiration-card">
+      <div class="img-box">
+        <!-- Replace with <img src="kaia.jpg" alt="Kaia Gerber"> -->
+        <span>+ photo</span>
+      </div>
+      <div class="name">Kaia Gerber</div>
+    </div>
+    <div class="inspiration-card">
+      <div class="img-box">
+        <!-- Replace with <img src="kirsty.jpg" alt="Kirsty Godso"> -->
+        <span>+ photo</span>
+      </div>
+      <div class="name">Kirsty Godso</div>
+    </div>
+    <div class="inspiration-card">
+      <div class="img-box">
+        <!-- Replace with <img src="stesha.jpg" alt="Stesha Malikova"> -->
+        <span>+ photo</span>
+      </div>
+      <div class="name">Stesha Malikova</div>
+    </div>
+    <div class="inspiration-card">
+      <div class="img-box">
+        <!-- Replace with <img src="yours.jpg" alt="You"> -->
+        <span>+ photo</span>
+      </div>
+      <div class="name">You</div>
+    </div>
+  </div>
+
+  <div class="targets">
+    <span><strong>Week of:</strong> _______________</span>
+    <span><strong>Kcal:</strong> 1,350–1,650 (↑1,700 Sat)</span>
+    <span><strong>Protein:</strong> 90–100 g</span>
+    <span><strong>Water:</strong> 2–2.5 L</span>
+    <span><strong>Steps:</strong> 8k–10k+</span>
+    <span><strong>Sleep:</strong> 7–9 h</span>
+  </div>
+
+  <div class="day-card mon">
+    <div class="day-header">Monday <span class="training-badge">Easy run</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,350–1,400 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, 1 slice wholegrain bread, cucumber/tomato, <span class="grams">50 g berries</span></span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">80 g</span> cooked buckwheat, <span class="grams">100 g</span> chicken breast, large salad (greens, pepper), 1 tsp olive oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> <span class="grams">100 g</span> Greek yogurt (0–2%) or 1 pack natto, 1 small apple</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">100 g</span> cooked rice, <span class="grams">100 g</span> white fish (cod/halibut), steamed broccoli, 1 tsp olive oil, lemon</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Easy run</strong> — 25–35 min outside. Conversational pace; HR 65–75%. Warm-up: walk 2–3 min, easy jog 3–5 min. Cool-down: easy jog → walk.</span></label>
+        <div class="training-desc detail">Optional: Gym A (lower + core) 45–55 min or yoga (video) 30–45 min.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card tue">
+    <div class="day-header">Tuesday <span class="training-badge">Tempo run</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,500–1,550 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, <span class="grams">50 g</span> oats (cooked), <span class="grams">50 g</span> berries, pinch cinnamon</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">100 g</span> cooked buckwheat or quinoa, <span class="grams">100 g</span> lean beef or turkey, cabbage/carrot salad, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> <span class="grams">30 g</span> cheese (feta/hard) + 1 small cucumber, or 100 g cottage cheese + 1 pear</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">100 g</span> cooked rice, <span class="grams">100 g</span> chicken thigh (no skin) or salmon, green beans, 1 tsp oil</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Tempo run</strong> — ~40 min. 10 min easy → 20–25 min tempo (comfortably hard; HR 80–88%) → 8–10 min easy.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card wed">
+    <div class="day-header">Wednesday <span class="training-badge">Gym B — Upper + core</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,500–1,550 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, 1 slice bread, 1 pack natto or 80 g Greek yogurt, greens, <span class="grams">50 g</span> berries</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">100 g</span> cooked buckwheat, <span class="grams">100 g</span> turkey breast, tomato/cucumber salad, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> 100 g cottage cheese (2–5%) + 1 pear or 1 small banana</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">80 g</span> cooked rice, <span class="grams">120 g</span> white fish or 100 g salmon, zucchini, lemon, 1 tsp oil</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Gym B — Upper + core</strong> — 45–55 min. Rows 3×10–12, push-ups 3×8–12, overhead press 3×8–10, lat pull-down 2×10–12, biceps/triceps 2×12, hollow hold or bicycle crunches 2×30 s. Rest 60–75 s.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card thu">
+    <div class="day-header">Thursday <span class="training-badge">Intervals</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,550–1,600 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, 50 g oats or 80 g cooked buckwheat, spinach, <span class="grams">50 g</span> berries</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">100 g</span> chicken breast, large mixed salad, <span class="grams">100 g</span> cooked rice or sweet potato, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> 1 pack natto + 1 orange, or Greek yogurt + 1 apple</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">100 g</span> lean meat (beef/pork tenderloin) or 120 g fish, roasted veg (pepper, courgette), <span class="grams">70 g</span> rice</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Intervals</strong> — ~35–40 min. 10 min easy → 4 strides → 8×1 min hard / 1 min easy (HR 88–95% on hard) → 8–10 min easy.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card fri">
+    <div class="day-header">Friday <span class="training-badge">Gym C — Full body</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,500–1,550 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, 1 slice wholegrain bread, <span class="grams">30 g</span> cheese, tomato, <span class="grams">50 g</span> berries</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">100 g</span> cooked buckwheat, <span class="grams">100 g</span> chicken breast, cucumber salad, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> 100 g cottage cheese or Greek yogurt + 1 small apple</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">100 g</span> cooked rice, <span class="grams">100 g</span> fish (white or salmon), asparagus, 1 tsp oil, lemon</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Gym C — Full body</strong> — 40–50 min. Squat 3×10, RDL 2×12, step-ups 2×10/leg, overhead press 2×10, row 2×12, plank 45 s + side plank 30 s each.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card sat">
+    <div class="day-header">Saturday <span class="training-badge">Long run</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,600–1,700 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, 60 g oats or 1 slice bread + 1 pack natto, ½ banana, <span class="grams">50 g</span> berries</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">120 g</span> cooked buckwheat or quinoa, <span class="grams">100 g</span> beef or chicken, cabbage/carrot, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> 30 g cheese + 1 cucumber, or 1 small pear + 10 g nuts</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">100 g</span> rice, <span class="grams">100 g</span> chicken or turkey, broccoli, 1 tsp oil</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Long easy run</strong> — 60–75 min outside. Easy, conversational; HR 65–75%. Warm-up 5–8 min, cool-down 5–8 min.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-card sun">
+    <div class="day-header">Sunday <span class="training-badge">Hills or yoga</span></div>
+    <div class="day-body">
+      <div class="meals">
+        <div class="block-title">Meals (g) — ~1,400–1,450 kcal</div>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Breakfast:</strong> 2 eggs, <span class="grams">50 g</span> oats, <span class="grams">50 g</span> berries</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Lunch:</strong> <span class="grams">100 g</span> buckwheat, <span class="grams">100 g</span> turkey or salmon, large salad, 1 tsp oil</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Snack:</strong> 1 pack natto + 1 pear, or Greek yogurt + 1 orange</span></label>
+        <label class="meal-line"><input type="checkbox"> <span><strong>Dinner:</strong> <span class="grams">80 g</span> rice, <span class="grams">100 g</span> white fish, green beans, lemon, 1 tsp oil</span></label>
+      </div>
+      <div class="training-block">
+        <div class="block-title">Training</div>
+        <label class="training-desc"><input type="checkbox"> <span><strong>Hills</strong> — ~40–50 min. 10 min easy → 8–10×60–90 s uphill hard (jog/walk down) → 8–10 min easy. <strong>Or</strong> yoga (video) 30–45 min.</span></label>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note"><strong>Daily:</strong> 5–10 min run routine · 2–2.5 L water</p>
+
+</body>
+</html>
